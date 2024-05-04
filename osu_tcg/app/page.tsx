@@ -6,8 +6,12 @@ export default function Home() {
 	const [numBlue, setNumBlue] = useState(0);
   return (
     <main className="min-h-screen items-center justify-between">
-    	<button onClick={() => setNumRed(numRed + 1)}>Add Red Card</button>
-    	<button onClick={() => setNumBlue(numBlue + 1)}>Add Blue Card</button>
+    	<div className="flex justify-between">
+		<button onClick={() => setNumRed(numRed + 1)}>Add Red Card</button>
+		<button onClick={() => setNumRed(numRed - 1)}>Remove Red Card</button>
+		<button onClick={() => setNumBlue(numBlue + 1)}>Add Blue Card</button>
+		<button onClick={() => setNumBlue(numBlue - 1)}>Remove Blue Card</button>
+	</div>
 	<div className="grid grid-cols-2">
 		<div className="my-2 flex flex-row bg-red-200">
 			{[...Array(numRed)].fill(undefined).slice(0,7).map((_) => <TCGCard/>)}
