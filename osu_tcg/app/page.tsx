@@ -14,22 +14,22 @@ export default function Home() {
 	</div>
 	<div className="grid grid-cols-2">
 		<div className="my-2 flex flex-row bg-red-200">
-			{[...Array(numRed)].fill(undefined).slice(0,7).map((_) => <TCGCard/>)}
+			{[...Array(numRed)].fill(undefined).slice(0,12).map((_) => <TCGCard/>)}
 		</div>
 		<div className="my-2 flex flex-row bg-blue-200">
-			{[...Array(numBlue)].fill(undefined).slice(0,7).map((_) => <TCGCard/>)}
+			{[...Array(numBlue)].fill(undefined).slice(0,12).map((_) => <TCGCard/>)}
 		</div>
 		<div className="my-2 flex flex-row bg-red-200">
-			{[...Array(numRed)].fill(undefined).slice(7,14).map((_) => <TCGCard/>)}
+			{[...Array(numRed)].fill(undefined).slice(12,24).map((_) => <TCGCard/>)}
 		</div>
 		<div className="my-2 flex flex-row bg-blue-200">
-			{[...Array(numBlue)].fill(undefined).slice(7,14).map((_) => <TCGCard/>)}
+			{[...Array(numBlue)].fill(undefined).slice(12,24).map((_) => <TCGCard/>)}
 		</div>
 		<div className="my-2 flex flex-row bg-red-200">
-			{[...Array(numRed)].fill(undefined).slice(14,21).map((_) => <TCGCard/>)}
+			{[...Array(numRed)].fill(undefined).slice(24,36).map((_) => <TCGCard/>)}
 		</div>
 		<div className="my-2 flex flex-row bg-blue-200">
-			{[...Array(numBlue)].fill(undefined).slice(14,21).map((_) => <TCGCard/>)}
+			{[...Array(numBlue)].fill(undefined).slice(24,36).map((_) => <TCGCard/>)}
 		</div>
 	</div>
     </main>
