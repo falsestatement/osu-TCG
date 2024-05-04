@@ -9,11 +9,23 @@ export default function Home() {
     	<button onClick={() => setNumRed(numRed + 1)}>Add Red Card</button>
     	<button onClick={() => setNumBlue(numBlue + 1)}>Add Blue Card</button>
 	<div className="grid grid-cols-2">
-		<div className="flex flex-row bg-red-200">
-			{[...Array(numRed)].fill(undefined).map((_) => <TCGCard/>)}
+		<div className="my-2 flex flex-row bg-red-200">
+			{[...Array(numRed)].fill(undefined).slice(0,7).map((_) => <TCGCard/>)}
 		</div>
-		<div className="flex flex-row bg-blue-200">
-			{[...Array(numBlue)].fill(undefined).map((_) => <TCGCard/>)}
+		<div className="my-2 flex flex-row bg-blue-200">
+			{[...Array(numBlue)].fill(undefined).slice(0,7).map((_) => <TCGCard/>)}
+		</div>
+		<div className="my-2 flex flex-row bg-red-200">
+			{[...Array(numRed)].fill(undefined).slice(7,14).map((_) => <TCGCard/>)}
+		</div>
+		<div className="my-2 flex flex-row bg-blue-200">
+			{[...Array(numBlue)].fill(undefined).slice(7,14).map((_) => <TCGCard/>)}
+		</div>
+		<div className="my-2 flex flex-row bg-red-200">
+			{[...Array(numRed)].fill(undefined).slice(14,21).map((_) => <TCGCard/>)}
+		</div>
+		<div className="my-2 flex flex-row bg-blue-200">
+			{[...Array(numBlue)].fill(undefined).slice(14,21).map((_) => <TCGCard/>)}
 		</div>
 	</div>
     </main>
