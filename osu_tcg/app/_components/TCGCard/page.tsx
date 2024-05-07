@@ -1,9 +1,12 @@
 import { useState, useRef } from 'react';
 
 const TCGCard = () => {
+	// cardVariants: none, holofoil, polychrome
+	// rarityVariants: common, uncommon, rare
 	const [counter, setCounter] = useState(0);
 	const boundingRef = useRef<DOMRect | null>(null);
-	const cardVariant = "none";
+	const cardVariant = "holofoil";
+	const rarityVariant = "common"
 	return (
 		<div 
 		onMouseEnter={(e) => {
@@ -34,9 +37,15 @@ const TCGCard = () => {
 			<div className="flex flex-col justify-between bg-pink-300 w-full h-full rounded-md p-2">
 				<button className="absolute hidden text-white bg-pink-700 group-hover:flex -right-1 -top-1 bg-pink-700 w-5 h-5 justify-center items-center rounded-full text-sm hover:bg-pink-500">x</button>
 				<div className="flex flex-col grow">
-					<div className="bg-gradient-to-r from-pink-500 to-red-500 rounded-md flex justify-center items-center border-solid border-2 border-pink-700">
+					<div className={
+						rarityVariant == "common" ? "bg-gradient-to-r from-lime-500 to-lime-500 rounded-md flex justify-center items-center border-solid border-2 border-green-700"
+					  : rarityVariant == "uncommon" ? "bg-gradient-to-r from-blue-500 to-blue-500 rounded-md flex justify-center items-center border-solid border-2 border-blue-700"
+					  : rarityVariant == "rare" ? "bg-gradient-to-r from-pink-500 to-red-500 rounded-md flex justify-center items-center border-solid border-2 border-pink-700"
+					  : "hidden"
+					  }>
 						Card Name
 					</div>
+					
 					<div className="bg-white my-2 h-2/5 rounded-md flex justify-center items-center bg-[url('https://i.pinimg.com/originals/6a/db/ea/6adbea3b760d8b09f2ea42d948e3db78.jpg')] bg-cover border-solid border-2 border-violet-700"/>
 
 					<div className="text-[10px] text-center">
