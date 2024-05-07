@@ -38,9 +38,9 @@ const TCGCard = () => {
 				<button className="absolute hidden text-white bg-pink-700 group-hover:flex -right-1 -top-1 bg-pink-700 w-5 h-5 justify-center items-center rounded-full text-sm hover:bg-pink-500">x</button>
 				<div className="flex flex-col grow">
 					<div className={
-						rarityVariant == "common" ? "bg-gradient-to-r from-lime-500 to-green-500 rounded-md flex justify-center items-center border-solid border-2 border-lime-700"
-					  : rarityVariant == "uncommon" ? "bg-gradient-to-r from-sky-500 to-blue-500 rounded-md flex justify-center items-center border-solid border-2 border-sky-700"
-					  : rarityVariant == "rare" ? "bg-gradient-to-r from-pink-500 to-red-500 rounded-md flex justify-center items-center border-solid border-2 border-pink-700"
+						rarityVariant == "common" ? "bg-gradient-to-r from-lime-500 to-green-500 rounded-md flex justify-center items-center border-solid border-2 border-lime-700 select-none font-bold"
+					  : rarityVariant == "uncommon" ? "bg-gradient-to-r from-sky-500 to-blue-500 rounded-md flex justify-center items-center border-solid border-2 border-sky-700 select-none font-bold"
+					  : rarityVariant == "rare" ? "bg-gradient-to-r from-pink-500 to-red-500 rounded-md flex justify-center items-center border-solid border-2 border-pink-700 select-none font-bold"
 					  : "hidden"
 					  }>
 						Card Name
@@ -48,7 +48,7 @@ const TCGCard = () => {
 					
 					<div className="bg-white my-2 h-2/5 rounded-md flex justify-center items-center bg-[url('https://i.pinimg.com/originals/6a/db/ea/6adbea3b760d8b09f2ea42d948e3db78.jpg')] bg-cover border-solid border-2 border-violet-700"/>
 
-					<div className="text-[10px] text-center">
+					<div className="text-[10px] text-center select-none">
 						Some very long descriptor text
 						here including some random information
 						about the specified card etc etc
