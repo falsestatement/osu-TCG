@@ -7,6 +7,9 @@ const TCGCard = () => {
 	const boundingRef = useRef<DOMRect | null>(null);
 	const cardVariant = "polychrome";
 	const rarityVariant = "rare"
+
+	document.body.style.setProperty('--poly-x', '-170%');
+	document.body.style.setProperty('--poly-y', '-200%');
 	return (
 		<div 
 		onMouseEnter={(e) => {
