@@ -7,24 +7,24 @@ export default function Home() {
 	const numCardsPerRow = 9;
   return (
 	<main>
-		<div className="overflow-hidden bg-gradient-to-r from-pink-500 to-violet-500 h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
+		<div className="overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
 			<div className="grid grid-cols-2 h-full w-full">
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-red-400 h-full w-full">
+				<div className="scale-150 my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numRed)].fill(undefined).slice(0, numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-blue-400 h-full w-full">
+				<div className="my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numBlue)].fill(undefined).slice(0, numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-red-400 h-full w-full">
+				<div className="my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numRed)].fill(undefined).slice(numCardsPerRow, 2 * numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-blue-400 h-full w-full">
+				<div className="my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numBlue)].fill(undefined).slice(numCardsPerRow,2 * numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-red-400 h-full w-full">
+				<div className="my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numRed)].fill(undefined).slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
-				<div className="my-2 py-4 flex flex-row justify-center items-center bg-blue-400 h-full w-full">
+				<div className="my-2 py-4 flex flex-row justify-center items-center h-full w-full">
 					{[...Array(numBlue)].fill(undefined).slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((_) => <TCGCard/>)}
 				</div>
 			</div>
