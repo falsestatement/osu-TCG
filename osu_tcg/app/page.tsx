@@ -30,10 +30,10 @@ export default function Home() {
 			</div>
 		</div>
 		<div className="flex justify-between">
-			<button onClick={() => setNumRed(numRed + 1)}>Add Red Card</button>
-			<button onClick={() => setNumRed(numRed - 1)}>Remove Red Card</button>
-			<button onClick={() => setNumBlue(numBlue + 1)}>Add Blue Card</button>
-			<button onClick={() => setNumBlue(numBlue - 1)}>Remove Blue Card</button>
+			<button onClick={() => setNumRed(numRed < numCardsPerRow * 3 ? numRed + 1 : numRed)}>Add Red Card</button>
+			<button onClick={() => setNumRed(numRed > 0 ? numRed - 1 : numRed)}>Remove Red Card</button>
+			<button onClick={() => setNumBlue(numBlue < numCardsPerRow * 3 ? numBlue + 1 : numBlue)}>Add Blue Card</button>
+			<button onClick={() => setNumBlue(numBlue > 0 ? numBlue - 1 : numBlue)}>Remove Blue Card</button>
 		</div>
 	</main>
   );
