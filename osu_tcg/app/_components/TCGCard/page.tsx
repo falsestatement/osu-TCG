@@ -45,11 +45,6 @@ const TCGCard = ({
 			e.currentTarget.style.setProperty("--poly-y", `${-(normY+1)*70}%`);
 			e.currentTarget.style.setProperty("--rot-x", `${-(normY-0.5)*10}deg`);
 			e.currentTarget.style.setProperty("--rot-y", `${(normX-0.5)*10}deg`);
-
-			console.table({
-				MouseX: normX,
-				MouseY: normY,
-			});
 		}}
 		className="group hover:[transform:perspective(500px)_rotateY(var(--rot-y))_rotateX(var(--rot-x))] relative [flex -ml-[62px] first:ml-0 min-w-[15em] min-h-[21em] w-[15em] h-[21em] bg-gradient-to-br from-pink-400 to-violet-600 rounded-lg p-1 drop-shadow-[0_5px_5px_rgba(0,0,0,0.35)] left-0 top-0 transition-[left,top] duration-200 ease-in-out hover:-top-2 peer peer-hover:relative peer-hover:left-[72px]">
 			<div 
