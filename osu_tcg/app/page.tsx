@@ -66,7 +66,7 @@ export default function Home() {
 			setQuery={setVariantQuery}
 			filtering={false}
 		/>
-		<div className="grid grid-cols-2 gap-5 w-[25em]">
+		<div className="flex gap-5">
 			<button 
 			className="bg-red-400 rounded-lg p-2 hover:bg-red-300"
 			onClick={() => {
