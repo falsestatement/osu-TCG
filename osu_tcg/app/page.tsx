@@ -27,22 +27,22 @@ export default function Home() {
 		<div className="overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
 			<div className="grid grid-cols-2 h-full w-full">
 				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{redCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{blueCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 				<div className="relative -top-28 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(numCardsPerRow, 2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{redCards.slice(numCardsPerRow, 2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 				<div className="relative -top-28 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(numCardsPerRow,2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{blueCards.slice(numCardsPerRow,2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 				<div className="relative -top-56 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{redCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 				<div className="relative -top-56 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant}/>)}
+					{blueCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@ export default function Home() {
 		/>
 		<div className="grid grid-cols-2 gap-5 w-[25em]">
 			<button 
-			className="bg-red-200 rounded-lg p-2 hover:bg-red-300"
+			className="bg-red-400 rounded-lg p-2 hover:bg-red-300"
 			onClick={() => {
 				const target = card_database.filter((card) => card.title === cardQuery);
 				if(target.length < 1) {
@@ -74,7 +74,7 @@ export default function Home() {
 				Add Red Card
 			</button>
 			<button 
-			className="bg-blue-200 rounded-lg p-2 hover:bg-blue-300"
+			className="bg-blue-400 rounded-lg p-2 hover:bg-blue-300"
 			onClick={() => {
 				const target = card_database.filter((card) => card.title === cardQuery);
 				if(target.length < 1) {
@@ -84,24 +84,6 @@ export default function Home() {
 				setBlueCards([...blueCards, {...target[0], variant: variantQuery}]);
 			}}>
 				Add Blue Card
-			</button>
-			<button 
-			className="bg-red-400 rounded-lg p-2 hover:bg-red-300"
-			onClick={() => {
-				if(redCards.length < 1)
-					return
-				setRedCards(redCards.slice(0, redCards.length - 1))
-			}}>
-				Remove Red Card
-			</button>
-			<button 
-			className="bg-blue-400 rounded-lg p-2 hover:bg-blue-300"
-			onClick={() => {
-				if(blueCards.length < 1)
-					return
-				setBlueCards(blueCards.slice(0, blueCards.length - 1))
-			}}>
-				Remove Blue Card
 			</button>
 		</div>
 	</main>
