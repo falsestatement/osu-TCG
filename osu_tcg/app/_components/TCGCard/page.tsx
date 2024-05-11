@@ -5,11 +5,13 @@ const TCGCard = ({
 	description,
 	variant,
 	onClose,
+	onCardClick,
 } : {
 	title: string,
 	description:string,
 	variant: string,
 	onClose: () => void,
+	onCardClick: (any) => void,
 }) => {
 	// cardVariants: Normal, Holographic, Polychromatic
 	// rarityVariants: common, uncommon, rare
@@ -23,7 +25,8 @@ const TCGCard = ({
 	document.body.style.setProperty('--poly-x', '-15%');
 	document.body.style.setProperty('--poly-y', '-25%');
 	return (
-		<div 
+		<div
+		onClick={onCardClick}
 		onMouseEnter={(e) => {
 			boundingRef.current = e.currentTarget.getBoundingClientRect();	
 		}}

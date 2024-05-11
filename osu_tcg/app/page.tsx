@@ -9,9 +9,15 @@ export default function Home() {
 	const [variantQuery, setVariantQuery] = useState('');
 	const [redCards, setRedCards] = useState([]);
 	const [blueCards, setBlueCards] = useState([]);
+	const [redCardID, setRedCardID] = useState(0);
+	const [blueCardID, setBlueCardID] = useState(0);
 
 	const numCardsPerRow = 9;
 	const cardVariants = ['Normal', 'Holographic', 'Polychromatic'];
+
+	const onCardClick = (card) => {
+		alert(JSON.stringify(card, null, 2));
+	}
 	
 	useEffect(() => {
 		const scaleFactor = Math.max(Math.min(-(1/8)*(redCards.length - 5) + 1, 1), 0.7);
@@ -27,22 +33,22 @@ export default function Home() {
 		<div className="overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
 			<div className="grid grid-cols-2 h-full w-full">
 				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
+					{redCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
+					{blueCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 				<div className="relative -top-28 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(numCardsPerRow, 2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
+					{redCards.slice(numCardsPerRow, 2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 				<div className="relative -top-28 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(numCardsPerRow,2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
+					{blueCards.slice(numCardsPerRow,2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 				<div className="relative -top-56 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))}/>)}
+					{redCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 				<div className="relative -top-56 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))}/>)}
+					{blueCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
 				</div>
 			</div>
 		</div>
@@ -69,7 +75,8 @@ export default function Home() {
 					alert('No such card');
 					return;
 				}
-				setRedCards([...redCards, {...target[0], variant: variantQuery}]);
+				setRedCards([...redCards, {...target[0], variant: variantQuery, id: redCardID}]);
+				setRedCardID(redCardID + 1);
 			}}>
 				Add Red Card
 			</button>
@@ -81,7 +88,8 @@ export default function Home() {
 					alert('No such card');
 					return;
 				}
-				setBlueCards([...blueCards, {...target[0], variant: variantQuery}]);
+				setBlueCards([...blueCards, {...target[0], variant: variantQuery, id: blueCardID}]);
+				setBlueCardID(blueCardID + 1);
 			}}>
 				Add Blue Card
 			</button>
