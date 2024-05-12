@@ -34,7 +34,8 @@ const ComboBox = ({
 					className={valid ? "w-full bg-gray-200" : "w-full bg-red-200"}
 				/>
 				<div className="absolute z-10 bg-white w-full max-h-60 overflow-y-scroll">
-					{inputFocus && filteredList.map((item) => <div 
+					{inputFocus && filteredList.map((item, id) => <div 
+								key={`select-item-${id}`}
 								className="hover:bg-gray-200 select-none"
 								onClick={() => {
 									setQuery(item);
