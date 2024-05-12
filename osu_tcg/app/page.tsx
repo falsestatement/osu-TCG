@@ -13,6 +13,7 @@ export default function Home() {
 	const [blueCardID, setBlueCardID] = useState(0);
 
 	const numCardsPerRow = 9;
+	const numRows = 3;
 	const cardVariants = ['Normal', 'Holographic', 'Polychromatic'];
 
 	const onCardClick = (card) => {
@@ -20,36 +21,26 @@ export default function Home() {
 	}
 	
 	useEffect(() => {
-		const scaleFactor = Math.max(Math.min(-(1/8)*(redCards.length - 5) + 1, 1), 0.7);
+		const scaleFactor = Math.max(Math.min(-(1/8)*(redCards.length - 5) + 1.2, 1.2), 0.7);
 		document.body.style.setProperty("--row-scale-red", `${scaleFactor}`);
 	},[redCards.length]);
 	
 	useEffect(() => {
-		const scaleFactor = Math.max(Math.min(-(1/8)*(blueCards.length - 5) + 1, 1), 0.7);
+		const scaleFactor = Math.max(Math.min(-(1/8)*(blueCards.length - 5) + 1.2, 1.2), 0.7);
 		document.body.style.setProperty("--row-scale-blue", `${scaleFactor}`);
 	},[blueCards.length]);
   return (
 	<main className="flex flex-col gap-5">
-		<div className="overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
-			<div className="grid grid-cols-2 h-full w-full">
-				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
-				<div className="relative top-0 z-10 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(0, numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
-				<div className="relative -top-28 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(numCardsPerRow, 2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
-				<div className="relative -top-28 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(numCardsPerRow,2 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
-				<div className="relative -top-56 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{redCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
-				<div className="relative -top-56 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 flex flex-row justify-center items-center h-full w-full">
-					{blueCards.slice(2 * numCardsPerRow, 3 * numCardsPerRow).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
-				</div>
+		<div className="flex overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
+			<div className="flex flex-col h-full w-1/2 justify-center items-center">
+				{Array(numRows).fill(undefined).map((_, rowNum) => <div className="relative top-0 [transform:scale(var(--row-scale-red))] transition ease-out duration-200 py-4 -my-10 flex flex-row justify-center items-center">
+					{redCards.slice(numCardsPerRow * rowNum, numCardsPerRow * (rowNum + 1)).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setRedCards(redCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
+				</div>)}
+			</div>
+			<div className="flex flex-col h-full w-1/2 justify-center items-center">
+				{Array(numRows).fill(undefined).map((_, rowNum) => <div className="relative top-0 [transform:scale(var(--row-scale-blue))] transition ease-out duration-200 py-4 -my-10 flex flex-row justify-center items-center">
+					{blueCards.slice(numCardsPerRow * rowNum, numCardsPerRow * (rowNum + 1)).map((card) => <TCGCard title={card.title} description={card.description} variant={card.variant} onClose={() => setBlueCards(blueCards.filter((testCard) => testCard != card))} onCardClick={() => onCardClick(card)}/>)}
+				</div>)}
 			</div>
 		</div>
 		<ComboBox
