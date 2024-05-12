@@ -76,9 +76,19 @@ const TCGCard = ({
 					</div>
 				</div>
 				<div className="group-hover:flex group-hover:justify-between">
-					<button onClick={() => setCounter((prev) => prev > 0 ? prev - 1 : prev)} className="p-2 mr-2 hidden bg-pink-300 rounded-lg w-5 h-5 group-hover:flex justify-center items-center hover:bg-pink-200">{"-"}</button>
+					<button 
+					onClick={(e) => {
+						e.stopPropagation();
+						setCounter((prev) => prev > 0 ? prev - 1 : prev);
+					}} 
+					className="p-2 mr-2 hidden bg-pink-300 rounded-lg w-5 h-5 group-hover:flex justify-center items-center hover:bg-pink-200">{"-"}</button>
 					<input value={counter} onChange={(e) => setCounter(+e.target.value)} type="number" className="font-bold w-full group-hover:text-center rounded-lg bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "/>
-					<button onClick={() => setCounter((prev) => prev + 1)} className="p-2 ml-2 hidden bg-pink-300 rounded-lg w-5 h-5 group-hover:flex justify-center items-center hover:bg-pink-200">{"+"}</button>
+					<button 
+					onClick={(e) => {
+						e.stopPropagation();
+						setCounter((prev) => prev + 1);
+					}} 
+					className="p-2 ml-2 hidden bg-pink-300 rounded-lg w-5 h-5 group-hover:flex justify-center items-center hover:bg-pink-200">{"+"}</button>
 				</div>
 
 			</div>
