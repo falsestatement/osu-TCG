@@ -32,8 +32,8 @@ const config: Config = {
 	  "50%": {backgroundPosition: "0% -260px, 0% -50px"},
 	},
 	"poly-idle": {
-	  "0%, 100%": {backgroundPosition: "0%, -120px -98px"},
-	  "50%": {backgroundPosition: "0%, -130px -112px"},
+	  "0%, 100%": {backgroundPosition: "0%, -100px -90px"},
+	  "50%": {backgroundPosition: "0%, -130px -120px"},
 	},
       },
       animation: {
