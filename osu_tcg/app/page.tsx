@@ -66,6 +66,10 @@ export default function Home() {
 					alert('No such card');
 					return;
 				}
+				if(redCards.length > numCardsPerRow * numRows - 1) {
+					alert('Card limit reached');
+					return;
+				}
 				setRedCards([...redCards, {...target[0], variant: variantQuery, id: redCardID}]);
 				setRedCardID(redCardID + 1);
 			}}>
@@ -77,6 +81,10 @@ export default function Home() {
 				const target = card_database.filter((card) => card.title === cardQuery);
 				if(target.length < 1) {
 					alert('No such card');
+					return;
+				}
+				if(blueCards.length > numCardsPerRow * numRows - 1) {
+					alert('Card limit reached');
 					return;
 				}
 				setBlueCards([...blueCards, {...target[0], variant: variantQuery, id: blueCardID}]);
