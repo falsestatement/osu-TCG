@@ -24,6 +24,8 @@ const TCGCard = ({
   document.body.style.setProperty("--after-glare-shift", "-120px");
   document.body.style.setProperty("--poly-x", "-15%");
   document.body.style.setProperty("--poly-y", "-25%");
+  document.body.style.setProperty("--shine-brightness", "0.4");
+
   return (
     <div
       onClick={onCardClick}
@@ -62,8 +64,11 @@ const TCGCard = ({
           "--rot-y",
           `${(normX - 0.5) * 10}deg`,
         );
+        e.currentTarget.style.setProperty("--shine-x", `${normX * 100}%`);
+        e.currentTarget.style.setProperty("--shine-y", `${normY * 100}%`);
       }}
-      className="group animate-idle-wobble hover:animate-none hover:[transform:perspective(500px)_rotateY(var(--rot-y))_rotateX(var(--rot-x))] relative [flex -ml-[62px] first:ml-0 min-w-[15em] min-h-[21em] w-[15em] h-[21em] bg-gradient-to-br from-pink-400 to-violet-600 rounded-lg p-1 drop-shadow-[0_5px_5px_rgba(0,0,0,0.35)] left-0 top-0 transition-[left,top] duration-200 ease-in-out hover:-top-2 peer peer-hover:relative peer-hover:left-[72px]"
+      className="group animate-idle-wobble hover:animate-none
+      hover:[transform:perspective(500px)_rotateY(var(--rot-y))_rotateX(var(--rot-x))] relative [flex -ml-[62px] first:ml-0 min-w-[15em] min-h-[21em] w-[15em] h-[21em] bg-gradient-to-br from-pink-400 to-violet-600 rounded-lg p-1 drop-shadow-[0_5px_5px_rgba(0,0,0,0.35)] left-0 top-0 transition-[left,top] duration-200 ease-in-out hover:-top-2 peer peer-hover:relative peer-hover:left-[72px]"
     >
       <div className="flex relative flex-col justify-between bg-[url('/assets/omega_triangle.jpg')] bg-[length:75%] brightness-[1.1] w-full h-full rounded-md p-2">
         <div
@@ -80,15 +85,6 @@ const TCGCard = ({
               : "hidden"
           }
         />
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onClose();
-          }}
-          className="absolute hidden text-white bg-pink-700 group-hover:flex -right-3 -top-3 bg-pink-700 w-7 h-7 justify-center items-center rounded-full text-lg hover:bg-pink-500"
-        >
-          x
-        </button>
         <div className="flex flex-col grow">
           <div
             className={
@@ -137,6 +133,20 @@ const TCGCard = ({
           </button>
         </div>
       </div>
+      <div
+        className="absolute h-full w-full
+      bg-[radial-gradient(circle_at_var(--shine-x)_var(--shine-y),rgba(254,255,231,var(--shine-brightness))_0%,rgba(219,253,255,var(--shine-brightness))_24%,rgba(0,0,0,0)_72%)]
+      top-0 left-0 pointer-events-none rounded-lg mix-blend-overlay"
+      />
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className="absolute hidden text-white bg-pink-700 group-hover:flex -right-3 -top-3 bg-pink-700 w-7 h-7 justify-center items-center rounded-full text-lg hover:bg-pink-500"
+      >
+        x
+      </button>
     </div>
   );
 };
