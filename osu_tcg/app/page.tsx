@@ -46,7 +46,7 @@ export default function Home() {
     document.body.style.setProperty("--row-scale-blue", `${scaleFactor}`);
   }, [blueCards.length]);
   return (
-    <main className="flex flex-col gap-5">
+    <main className="flex flex-col gap-5 items-center">
       <div className="flex overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
         <div className="relative flex flex-col h-full w-1/2 justify-center items-center">
           {redCardView && (
@@ -141,21 +141,21 @@ export default function Home() {
             ))}
         </div>
       </div>
-      <ComboBox
-        title="Card Title"
-        listData={card_database.map((card) => card.title)}
-        query={cardQuery}
-        setQuery={setCardQuery}
-        filtering={true}
-      />
-      <ComboBox
-        title="Card Variant"
-        listData={cardVariants}
-        query={variantQuery}
-        setQuery={setVariantQuery}
-        filtering={false}
-      />
-      <div className="flex gap-5">
+      <div className="grid grid-cols-2 gap-5 w-[60em]">
+        <ComboBox
+          title="Card Title"
+          listData={card_database.map((card) => card.title)}
+          query={cardQuery}
+          setQuery={setCardQuery}
+          filtering={true}
+        />
+        <ComboBox
+          title="Card Variant"
+          listData={cardVariants}
+          query={variantQuery}
+          setQuery={setVariantQuery}
+          filtering={false}
+        />
         <button
           className="bg-red-400 rounded-lg p-2 hover:bg-red-300 select-none"
           onClick={() => {
