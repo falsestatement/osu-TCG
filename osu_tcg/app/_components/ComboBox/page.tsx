@@ -29,7 +29,10 @@ const ComboBox = ({
       <p className="font-bold mx-2">{title}</p>
       <div className="relative">
         <input
-          onClick={() => setInputFocus(true)}
+          onClick={() => {
+            setInputFocus(true);
+            setQuery("");
+          }}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === "Escape") setInputFocus(false);

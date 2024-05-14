@@ -107,7 +107,7 @@ const TCGCard = ({
             style={{
               margin: "0.5rem 0",
               minHeight: "7em",
-              borderRadius: "0.375",
+              borderRadius: "0.375rem",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
