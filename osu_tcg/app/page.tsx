@@ -59,6 +59,8 @@ export default function Home() {
                   title={currentViewRedCard.title}
                   description={currentViewRedCard.description}
                   variant={currentViewRedCard.variant}
+                  rarity={currentViewRedCard.rarity}
+                  image={currentViewRedCard.image}
                   onClose={() => setRedCardView(false)}
                 />
               </div>
@@ -78,6 +80,8 @@ export default function Home() {
                       title={card.title}
                       description={card.description}
                       variant={card.variant}
+                      rarity={card.rarity}
+                      image={card.image}
                       key={`red-card-${redKey}`}
                       onClose={() =>
                         setRedCards(
@@ -101,6 +105,8 @@ export default function Home() {
                   title={currentViewBlueCard.title}
                   description={currentViewBlueCard.description}
                   variant={currentViewBlueCard.variant}
+                  rarity={currentViewBlueCard.rarity}
+                  image={currentViewBlueCard.image}
                   onClose={() => setBlueCardView(false)}
                 />
               </div>
@@ -120,6 +126,8 @@ export default function Home() {
                       title={card.title}
                       description={card.description}
                       variant={card.variant}
+                      rarity={card.rarity}
+                      image={card.image}
                       key={`blue-card-${blueKey}`}
                       onClose={() =>
                         setBlueCards(
@@ -149,7 +157,7 @@ export default function Home() {
       />
       <div className="flex gap-5">
         <button
-          className="bg-red-400 rounded-lg p-2 hover:bg-red-300"
+          className="bg-red-400 rounded-lg p-2 hover:bg-red-300 select-none"
           onClick={() => {
             const target = card_database.filter(
               (card) => card.title === cardQuery,
@@ -172,7 +180,7 @@ export default function Home() {
           Add Red Card
         </button>
         <button
-          className="bg-blue-400 rounded-lg p-2 hover:bg-blue-300"
+          className="bg-blue-400 rounded-lg p-2 hover:bg-blue-300 select-none"
           onClick={() => {
             const target = card_database.filter(
               (card) => card.title === cardQuery,

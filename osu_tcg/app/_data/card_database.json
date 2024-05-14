@@ -1,186 +1,278 @@
 [
   {
     "title": "Gaming Chair",
+    "rarity": "Common",
+    "image": "GamingChair.jpg",
     "description": "Your scores are increased by 6%."
   },
   {
     "title": "Higher Score",
+    "rarity": "Common",
+    "image": "HigherScore.png",
     "description": "Your scores are increased by 15,000."
   },
   {
     "title": "Point Bottle",
+    "rarity": "Rare",
+    "image": "PointBottle.jpg",
     "description": "Gain a point. Destroy this card."
   },
   {
     "title": "Jester",
+    "rarity": "Uncommon",
+    "image": "Jester.jpg",
     "description": "Once per match, if it is your turn to pick, you may choose to play a random map from any current or previous pool, regardless of bans. This does not count as your pick. If the chosen map fits the requirements for any map-specific score buff card, add that card to your hand until the end of the match."
   },
   {
     "title": "Boss Rush",
+    "rarity": "Uncommon",
+    "image": "BossRush.jpg",
     "description": "You may pick the tiebreaker map. If you win the point, it is your pick again."
   },
   {
     "title": "Rob Stare",
+    "rarity": "Common",
+    "image": "RobStare.png",
     "description": "Your scores are increased by 12% on Touhou and Pokemon maps."
   },
   {
     "title": "Brain Power",
+    "rarity": "Common",
+    "image": "BrainPower.png",
     "description": "At the beginning of the match, choose one of your opponent's cards. The chosen card is disabled until they win 2 points."
   },
   {
     "title": "Trick Hand",
+    "rarity": "Rare",
+    "image": "TrickHand.jpg",
     "description": "At the beginning of the match, add 2 random cards to your hand. After the match, destroy all cards gained by this effect."
   },
   {
     "title": "Safeguard",
+    "rarity": "Uncommon",
+    "image": "Safeguard.jpg",
     "description": "At the beginning of the match, you may protect a map from bans."
   },
   {
     "title": "Vanilla",
+    "rarity": "Uncommon",
+    "image": "Vanilla.png",
     "description": "Once per match, if the selected map is a modded pick, you may play it with no mods."
   },
   {
     "title": "Swag",
+    "rarity": "Common",
+    "image": "Swag.jpg",
     "description": "Neither player may ban a map. Turn My Swag On [Hard] is played as the first map of the match with freemod."
   },
   {
     "title": "Difficulty Adjust",
+    "rarity": "Uncommon",
+    "image": "DifficultyAdjust.jpg",
     "description": "Once per match, if the selected map is part of a mapset, you may replace it with a different difficulty in the mapset, chosen randomly. Hard difficulties and below are disregarded."
   },
   {
     "title": "Bide",
+    "rarity": "Common",
+    "image": "Bide.jpg",
     "description": "After points are awarded on maps from three different mod categories, your subsequent scores are increased by 9%."
   },
   {
     "title": "Powerball",
+    "rarity": "Uncommon",
+    "image": "Powerball.jpg",
     "description": "Once per match, after playing a map, you may randomize the order of the digits in your score before awarding the point and add 2C to your Jackpot. If you win the point, the Jackpot is added to your Bank Account, the Jackpot is reset to 0, and this card is destroyed. This card cannot be used on TB."
   },
   {
     "title": "Stonks",
+    "rarity": "Common",
+    "image": "Stonks.jpg",
     "description": "Once per match, roll 100 twice. If the two rolls are the same, you win that amount in real-life dollars and all copies of this card held by all players are destroyed."
   },
   {
     "title": "Equality",
+    "rarity": "Rare",
+    "image": "Equality.jpg",
     "description": "If you are lower ranked than your opponent: gain triple the difference in rank as a Buffer. After each map is played and scores have been calculated, score is subtracted from the Buffer and added to your score until either you win the point or the Buffer reaches 0. If the remaining Buffer would not win you the point, this effect will not activate."
   },
   {
     "title": "Mirror",
+    "rarity": "Uncommon",
+    "image": "Mirror.jpg",
     "description": "At the beginning of the match, choose a card held by your opponent. This card takes on the effect of the chosen card."
   },
   {
     "title": "The Seer",
+    "rarity": "Rare",
+    "image": "TheSeer.jpg",
     "description": "Once per match, if it is your turn to pick, you may choose to play a random xi map with freemod. Your score on this map is increased by 72727 and 7.27%. This counts as your pick."
   },
   {
     "title": "Ascension to Heaven",
+    "rarity": "Common",
+    "image": "AscensionToHeaven.jpg",
     "description": "After winning a point, this card gains a counter. Your scores are increased by 3% for each counter on this card. At the end of the match, remove all counters from this card."
   },
   {
     "title": "Cultist",
+    "rarity": "Common",
+    "image": "Cultist.jpg",
     "description": "Your scores are increased by 6,666 multiplied by the number of players who own this card in the tournament."
   },
   {
     "title": "3636 Paka Pesos",
+    "rarity": "Rare",
+    "image": "3636PakaPesos.png",
     "description": "At the beginning of the match, you may force your opponent to complete a max set up of pushups. If you do, your opponent gains Gaming Chair. If they win a point, destroy that copy of Gaming Chair."
   },
   {
     "title": "Psuedohost",
+    "rarity": "Rare",
+    "image": "Psuedohost.jpg",
     "description": "At the end of the match, add a map to next week's pool. Destroy this card."
   },
   {
     "title": "Red Pill",
+    "rarity": "Uncommon",
+    "image": "RedPill.jpg",
     "description": "Your scores are increased by 9% when using HR."
   },
   {
     "title": "Blue Pill",
+    "rarity": "Rare",
+    "image": "BluePill.jpg",
     "description": "Your scores are increased by 9% when using HD."
   },
   {
     "title": "Change of Plans",
+    "rarity": "Common",
+    "image": "ChangeOfPlans.jpg",
     "description": "At the beginning of the match, one of your opponent's cards is replaced by a different card from the pack until the end of the match, both chosen randomly."
   },
   {
     "title": "Miku Buff",
+    "rarity": "Common",
+    "image": "MikuBuff.png",
     "description": "Your scores are increased by 12% on Love Live and Hatsune Miku maps."
   },
   {
     "title": "Sauced Spirit",
+    "rarity": "Rare",
+    "image": "SaucedSpirit.jpg",
     "description": "NM4 cannot be banned. Your scores are increased by 18% on NM4 and all maps with \"sauce\" or \"paka\" in the title, difficulty name, or mapper name."
   },
   {
     "title": "Eco Round",
+    "rarity": "Common",
+    "image": "EcoRound.jpg",
     "description": "After the match, if you lost, open a free Mini Booster. If you won, open a Jumbo Booster instead."
   },
   {
     "title": "Heist",
+    "rarity": "Uncommon",
+    "image": "Heist.jpg",
     "description": "At the end of the match, add your average score for the match divided by 150,000 to your Bank Account, capped at 10, and roll 100. If you rolled higher than 90, this effect activates again."
   },
   {
     "title": "Hand of Acillac",
+    "rarity": "Common",
+    "image": "HandOfAcillac.jpg",
     "description": "Your scores are increased by 30,000 on NM1, HD1, HR1, and DT1."
   },
   {
     "title": "Jazz Is Rad",
+    "rarity": "Common",
+    "image": "JazzIsRad.jpg",
     "description": "Your scores are increased by 12% on maps with timing changes."
   },
   {
     "title": "Chungis is Served",
+    "rarity": "Common",
+    "image": "ChungisIsServed.jpg",
     "description": "Your scores are increased by 9% when using no mods."
   },
   {
     "title": "Solar System",
+    "rarity": "Uncommon",
+    "image": "SolarSystem.jpg",
     "description": "At the beginning and the end of the match, roll 9. The number rolled corresponds to a planet, 1 being Mercury and 9 being Pluto. Add the rolled planet as a permanent counter to Solar System. Each unique planet increases your scores by 2%. Planets can be sold for 1 Currency."
   },
   {
     "title": "The Idiot Stick",
+    "rarity": "Uncommon",
+    "image": "TheIdiotStick.jpg",
     "description": "Once per match, after a map is picked but before it is played, you can choose to award an additional point to the player that wins the map."
   },
   {
     "title": "Maestro",
+    "rarity": "Uncommon",
+    "image": "Maestro.jpg",
     "description": "If you have exactly 4 cards in your hand, your score buffs are doubled."
   },
   {
     "title": "Alchemical Forge",
+    "rarity": "Rare",
+    "image": "AlchemicalForge.png",
     "description": "After your opponent wins a point, this card gains counters equal to the sell value of their most valuable card and that card’s sell value becomes 0 until the end of the match. Your scores are increased by the number of counters on this card as a percentage. At the end of the match, remove all counters from this card."
   },
   {
     "title": "Smuggler",
+    "rarity": "Rare",
+    "image": "Smuggler.png",
     "description": "After winning a point, this card gains a counter. Counters on cards in your hand are worth 1.5C and can be spent in the shop during the match. Any cards purchased with counters do not take up space in the hand. Each item in the shop may only be purchased once per match. At the end of the match, all cards gained by this effect and all counters on this card are destroyed."
   },
   {
     "title": "Art Appreciation",
+    "rarity": "Uncommon",
+    "image": "ArtAppreciation.jpg",
     "description": "Once per match, after a map is picked but before it is played, roll 100. Your opponent must set their background dim percentage to the rolled number for that map."
   },
   {
     "title": "Master of Lightning",
+    "rarity": "Common",
+    "image": "MasterOfLightning.jpg",
     "description": "Your scores are increased by 12% on Bocchi the Rock! and Super Mario maps."
   },
   {
     "title": "Comeback Kid",
+    "rarity": "Common",
+    "image": "ComebackKid.png",
     "description": "If you have less than a 2 point lead: After your opponent wins a point, this card gains a counter. After you win a point, this card loses a counter. Your scores are increased by 6% for each counter. At the end of the match, remove all counters from this card."
   },
   {
     "title": "Caffeine Pill",
+    "rarity": "Common",
+    "image": "CaffeinePill.jpg",
     "description": "You scores are increased by 12% on maps over 239 BPM and/or AR 10."
   },
   {
     "title": "Chaos",
+    "rarity": "Uncommon",
+    "image": "Chaos.jpg",
     "description": "At the beginning of the match, a completely random map is added to the pool."
   },
   {
     "title": "Endgame",
+    "rarity": "Uncommon",
+    "image": "Endgame.jpg",
     "description": "Once per match, if it is your turn to pick, you may choose to play a random map from Paka's bucket list collection. This counts as your pick. If the chosen map fits the requirements for any map-specific score buff card, add that card to your hand until the end of the match."
   },
   {
     "title": "Domain Expansion",
+    "rarity": "Rare",
+    "image": "DomainExpansion.jpg",
     "description": "Once per match, you may activate this card. If you do, a random card in you hand is disabled until the end of the match. The effects of this card vary depending on the user. This card cannot be used in consecutive matches. You may only have one copy of Domain Expansion in your hand."
   },
   {
     "title": "Executive Order",
+    "rarity": "Common",
+    "image": "RobStare.png",
     "description": "You may ban 1 additional map. You may only have one copy of Executive Order in your hand."
   },
   {
     "title": "Chef's Choice",
+    "rarity": "Rare",
+    "image": "RobStare.png",
     "description": "Your scores are increased by 12% on Paka's 3 most favorite maps in the pool."
   }
 ]

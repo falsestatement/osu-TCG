@@ -4,12 +4,16 @@ const TCGCard = ({
   title,
   description,
   variant,
+  rarity,
+  image,
   onClose,
   onCardClick,
 }: {
   title: string;
   description: string;
   variant: string;
+  rarity: string;
+  image: string;
   onClose: () => void;
   onCardClick: (any) => void;
 }) => {
@@ -17,7 +21,6 @@ const TCGCard = ({
   // rarityVariants: common, uncommon, rare
   const [counter, setCounter] = useState(0);
   const boundingRef = useRef<DOMRect | null>(null);
-  const rarityVariant = "rare";
 
   document.body.style.setProperty("--chroma-shift", "-200px");
   document.body.style.setProperty("--before-glare-shift", "-60px");
@@ -88,11 +91,11 @@ const TCGCard = ({
         <div className="flex flex-col grow">
           <div
             className={
-              rarityVariant == "common"
+              rarity == "Common"
                 ? "bg-gradient-to-r from-lime-500 to-green-500 rounded-md flex justify-center items-center border-solid border-2 border-lime-700 select-none font-bold"
-                : rarityVariant == "uncommon"
+                : rarity == "Uncommon"
                   ? "bg-gradient-to-r from-sky-500 to-blue-500 rounded-md flex justify-center items-center border-solid border-2 border-sky-700 select-none font-bold"
-                  : rarityVariant == "rare"
+                  : rarity == "Rare"
                     ? "bg-gradient-to-r from-pink-500 to-red-500 rounded-md flex justify-center items-center border-solid border-2 border-pink-700 select-none font-bold"
                     : "hidden"
             }
@@ -100,7 +103,21 @@ const TCGCard = ({
             {title}
           </div>
 
-          <div className="my-2 min-h-[7em] rounded-md flex justify-center items-center bg-[url('https://i.pinimg.com/originals/6a/db/ea/6adbea3b760d8b09f2ea42d948e3db78.jpg')] bg-cover border-solid border-2 border-violet-700" />
+          <div
+            style={{
+              margin: "0.5rem 0",
+              minHeight: "7em",
+              borderRadius: "0.375",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundImage: `url('/card_images/${image}')`,
+              backgroundSize: "cover",
+              borderStyle: "solid",
+              borderWidth: "2px",
+              borderColor: "rgb(109,40,217)",
+            }}
+          />
 
           <div className="text-[10px] text-center font-semibold select-none w-full max-h-[10em] h-[10em]">
             {description}
