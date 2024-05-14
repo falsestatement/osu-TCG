@@ -134,6 +134,9 @@ const TCGCard = ({
             {"-"}
           </button>
           <input
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             value={counter}
             onChange={(e) => setCounter(+e.target.value)}
             type="number"
