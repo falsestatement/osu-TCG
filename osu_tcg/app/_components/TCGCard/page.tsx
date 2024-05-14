@@ -24,7 +24,7 @@ const TCGCard = ({
   document.body.style.setProperty("--after-glare-shift", "-120px");
   document.body.style.setProperty("--poly-x", "-15%");
   document.body.style.setProperty("--poly-y", "-25%");
-  document.body.style.setProperty("--shine-brightness", "0.4");
+  document.body.style.setProperty("--shine-brightness", "0.7");
 
   return (
     <div
@@ -134,9 +134,11 @@ const TCGCard = ({
         </div>
       </div>
       <div
-        className="absolute h-full w-full
-      bg-[radial-gradient(circle_at_var(--shine-x)_var(--shine-y),rgba(254,255,231,var(--shine-brightness))_0%,rgba(219,253,255,var(--shine-brightness))_24%,rgba(0,0,0,0)_72%)]
-      top-0 left-0 pointer-events-none rounded-lg mix-blend-overlay"
+        className={
+          variant === "Holographic" || variant === "Polychromatic"
+            ? "absolute h-full w-full group-hover:bg-[radial-gradient(circle_at_var(--shine-x)_var(--shine-y),rgba(254,255,231,var(--shine-brightness))_0%,rgba(0,0,0,0)_60%)] top-0 left-0 pointer-events-none rounded-lg mix-blend-overlay group-hover:[mask-image:url('/assets/omega_triangle_mask.png')] group-hover:[mask-size:73%] group-hover:[mask-position:2px_1px]"
+            : "absolute h-full w-full group-hover:bg-[radial-gradient(circle_at_var(--shine-x)_var(--shine-y),rgba(254,255,231,0.4)_0%,rgba(0,0,0,0)_60%)] top-0 left-0 pointer-events-none rounded-lg mix-blend-overlay"
+        }
       />
       <button
         onClick={(e) => {
