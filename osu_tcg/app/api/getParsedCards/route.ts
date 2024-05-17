@@ -21,75 +21,70 @@ import { NextRequest, NextResponse } from "next/server";
 *                                 (____/|_|                              
 */
 
-// import card_database from "@/app/_data/card_database.json"
-
-// api thing for postwahtever
+// api thing for postman
 export const GET = async (req:NextRequest) => {
-    // User 
+    // User Paramenters (passed in through request)
     const score = req.nextUrl.searchParams.get("score");
     const mods = req.nextUrl.searchParams.get("mods")!.split(","); // ! - declares obj is never null (be careful says false (i dont know what to believe from him))
     const bpm = req.nextUrl.searchParams.get("bpm");
     const ar = req.nextUrl.searchParams.get("ar");
     const map = req.nextUrl.searchParams.get("map");
     const hand = JSON.parse(req.nextUrl.searchParams.get("hand"));
-    console.log("-------Hand-------");
-    console.log(hand);
-    console.log("--------------");
 
-    // List of mods which are applicable for every card with index i
+
+    // List of mods which are applicable for each card in hand
     const modList = hand.map((card) => {
         return getMods(card);
     });
-
+    
+    // List of maps which are applicable for each card in hand
     const mapList = hand.map((card) => {
         return getMaps(card);
     });
     
+    // List of map attributes which are applicable for each card in hand
     const mapAttributesList = hand.map((card) => {
         return getMapAttributes(card);
     });
     
+    // List of effects to apply to score for each card in hand
     const effectList = hand.map((card) => {
         return getEffect(card);
     });
 
-    // Queues for flat bonus and percent bonus (flat all gets added first then percents)
+    // Queues for flat bonus and percent bonus (flat first then percents second)
     const addQueue = [];
     const multiplyQueue = [];
 
 
-    // enqueues effect given index i in card_database
+    // enqueues effect for card i into the addQueue and multiplyQueue
     const enqueueEffect = (i) => {
         while(effectList[i] == undefined) effectList.shift(); // undefined workaround (idk why first element is undefined who fckn knows oh well)
         if(effectList[i][1] == "+") addQueue.push(parseFloat(effectList[i][0]));
         if(effectList[i][1] == "*") multiplyQueue.push(parseFloat(effectList[i][0]));
-        console.log(effectList[i][0]);
     }
     
-    let newScore = parseFloat(score!);
     for(let i = 0; i < modList.length; i++) {
-        // console.log(hand[i].title);
-        // console.log(modList);
         // If statements to check whether cards are valid and if effects are in play
         
-        console.log("---ValidMod?---")
-        console.log(modList[i].includes(...mods) || modList[i].includes("always"))
-        if(modList[i].includes(...mods) || modList[i].includes("always")) { // includes either of the strings in mods (╯°□°)╯︵ ┻━┻
-            console.log("---ModList---")
-            console.log(modList);
-            console.log("---Mods---")
-            console.log(mods);
+        // bool to indicate whether card mod requirement is met or not
+        let validMod = false;
+        for(let j = 0; j < mods.length; j++) {
+            if(modList[i].includes(mods[j]) || modList[i].includes("always")) validMod = true;
+        }
+
+        // enqueue effect if mod req is met
+        if(validMod) { 
             enqueueEffect(i);
         }
         
-        
-        if(map != "" && mapList[i].includes(map)) { // includes either of the strings in mods (╯°□°)╯︵ ┻━┻
-            // console.log(hand[i].title);
+        // enqueue effect if map req is met
+        if(map != "" && mapList[i].includes(map)) {
             enqueueEffect(i);
         }
         
+        // enqueue effect if BPM req is met
         if(mapAttributesList[i].includes("bpm")) {
-            // console.log(hand[i].title);
             if(mapAttributesList[i][1] == ">")
                 if(bpm > mapAttributesList[i][2]) enqueueEffect(i);
             if(mapAttributesList[i][1] == "=")
@@ -100,8 +95,9 @@ export const GET = async (req:NextRequest) => {
                 if(bpm <= mapAttributesList[i][2]) enqueueEffect(i);
             if(mapAttributesList[i][1] == ">=")
                 if(bpm >= mapAttributesList[i][2]) enqueueEffect(i);
-            }
-
+        }
+        
+        // enqueue effect if AR req is met
         if(mapAttributesList[i].includes("ar")) {
             if(mapAttributesList[i][1] == ">")
                 if(ar > mapAttributesList[i][2]) enqueueEffect(i);
@@ -115,37 +111,36 @@ export const GET = async (req:NextRequest) => {
                 if(ar >= mapAttributesList[i][2]) enqueueEffect(i);
         }
     }
-    
-    
-    console.log(addQueue);
-    console.log(multiplyQueue);
 
-    // Calculating newScore using filled queues
-    for(let i = 0; i < addQueue.length; i++) {
-        newScore += addQueue[i];
-    }
+    // Variable storing calculated score
+    let newScore = parseFloat(score!);
+
+    // Calculating newScore using add and multiply queues
+    for(let i = 0; i < addQueue.length; i++) newScore += addQueue[i];
+    for(let i = 0; i < multiplyQueue.length; i++) newScore *= multiplyQueue[i];
     
-    for(let i = 0; i < multiplyQueue.length; i++) {
-        newScore *= multiplyQueue[i];
-    }
-    console.log(newScore);
+    // Returns newScore to client
     return NextResponse.json(newScore, {status:200});
 }
 
-// PARSERS FOR PASSED IN PARAMETERS
+
+// --- Parsers for User Parameters ---
+
+// returns array of mods as strings
 const getMods = (card) => {
     if(!card.mods) return [""];
     return card.mods.split(',');
 }
 
+// returns array of valid map picks as strings
 const getMaps = (card) => {
     if(!card.map) return [""];
     return card.map.split(',');
 }
 
+// returns array of valid map attributes (ex. bpm, ar, cs...) as strings
 const getMapAttributes = (card) => {
     if(!card.map_attribute) return [""];
-    console.log("hay");
     let attributes = card.map_attribute.split(',');
     const attributeComponents = attributes.map((attribute) => {
         return attribute.split("|");
@@ -153,6 +148,7 @@ const getMapAttributes = (card) => {
     return attributeComponents;
 }
 
+// returns array of card effects with score and manipulator (ex. [15000, "+"])
 const getEffect = (card) => {
     if(!card.effect) return [""];
     if(card.effect[card.effect.length - 1] == "*") return [card.effect.slice(0, card.effect.length - 1), "*"];
