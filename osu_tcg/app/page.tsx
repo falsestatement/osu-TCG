@@ -274,7 +274,7 @@ export default function Home() {
         </button>
         
         <div
-        className ="relative flex-col">
+        className ="flex items-center mb-4 columns-2">
           <label>
             <input 
             onChange = {() => setParseParams((prev) => {
@@ -323,10 +323,11 @@ export default function Home() {
             type="checkbox" 
             />DT
           </label>
-          <label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
             Score: 
             <input
             type='number'
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 727727"
             value={parseParams.score}
             // e is the change event of this input
             onChange = {(e) => setParseParams((prev) => {
@@ -341,9 +342,10 @@ export default function Home() {
             })}
             />
           </label>
-          <label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
             Map: 
             <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. dt1"
             value={parseParams.map}
             // e is the change event of this input
             onChange = {(e) => setParseParams((prev) => {
@@ -358,9 +360,10 @@ export default function Home() {
             })}
             />
           </label>
-          <label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
             BPM: 
             <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 180"
             type='number'
             value={parseParams.bpm}
             // e is the change event of this input
@@ -376,9 +379,10 @@ export default function Home() {
             })}
             />
           </label>
-          <label>
-            ar: 
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+            AR: 
             <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 9.3"
             type="number"
             value={parseParams.ar}
             // e is the change event of this input
@@ -396,9 +400,9 @@ export default function Home() {
           </label>
 
         </div>
-        <button
+        <button className="bg-gray-400 rounded-lg p-2 hover:bg-gray-200 select-none"
         onClick={fetchData}><b>Calculate Score</b></button>
-        <div>{Math.round(score)}</div>
+        <div className="text-xl font-semibold">{Math.round(score)}</div>
       </div>
     </main>
   );

@@ -130,8 +130,6 @@ export const GET = async (req:NextRequest) => {
     // Variable storing calculated score
     let newScore = parseFloat(score!);
 
-    console.log(addQueue);
-    console.log(multiplyQueue);
     // Calculating newScore using add and multiply queues
     for(let i = 0; i < addQueue.length; i++) newScore += addQueue[i];
     for(let i = 0; i < multiplyQueue.length; i++) newScore *= multiplyQueue[i];
