@@ -30,7 +30,6 @@ export const GET = async (req:NextRequest) => {
     const ar = req.nextUrl.searchParams.get("ar");
     const map = req.nextUrl.searchParams.get("map");
     const hand = JSON.parse(req.nextUrl.searchParams.get("hand"));
-
     
     
     // List of mods which are applicable for each card in hand

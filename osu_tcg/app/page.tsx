@@ -16,7 +16,7 @@ export default function Home() {
   const [blueCardView, setBlueCardView] = useState(false);
   const [currentViewBlueCard, setCurrentViewBlueCard] = useState({});
   const [score, setScore] = useState("");
-  const [parseParams, setParseParams] = useState({
+  const [redParseParams, setRedParseParams] = useState({
     score: "0",
     mods: ["nm"],
     map: "",
@@ -24,7 +24,6 @@ export default function Home() {
     ar: "",
     hand: {}
   });
-  // console.log(redCards);
 
   // class InputParams {
   //   private score: string = '0';
@@ -62,13 +61,9 @@ export default function Home() {
   // An Async function which fetches a response from the API (which calculates a score based on mods and whatnot)
   // Then converts it to a JSON and uses score state to set score.
   const fetchData = async () => {
-    // ERROR WITH PARSEPARAMS.HAND IT'S SENDING [OBJECT object] INSTEAD OF THE ACTUAL OBJECT BRUH
-
-    const req = await fetch(`/api/getParsedCards?score=${parseParams.score}&mods=${parseParams.mods}&bpm=${parseParams.bpm}&ar=${parseParams.ar}&map=${parseParams.map}&hand=${parseParams.hand}`);
-    // console.log(parseParams.hand);
+    const req = await fetch(`/api/getParsedCards?score=${redParseParams.score}&mods=${redParseParams.mods}&bpm=${redParseParams.bpm}&ar=${redParseParams.ar}&map=${redParseParams.map}&hand=${redParseParams.hand}`);
     const reqJSON = await req.json();
     setScore(reqJSON);
-    // console.log(reqJSON);
   }
 
   useEffect(() => {
@@ -90,15 +85,15 @@ export default function Home() {
 
   // Prints user input for input data
   useEffect(() => {
-    console.log({
-      score: parseParams.score,
-      mods: parseParams.mods.join(","),
-      map: parseParams.map,
-      bpm: parseParams.bpm,
-      ar: parseParams.ar,
-      hand: parseParams.hand
-    });
-  }, [parseParams])
+    // console.log({
+    //   score: redParseParams.score,
+    //   mods: redParseParams.mods.join(","),
+    //   map: redParseParams.map,
+    //   bpm: redParseParams.bpm,
+    //   ar: redParseParams.ar,
+    //   hand: redParseParams.hand
+    // });
+  }, [redParseParams])
   return (
     <main className="flex flex-col gap-5 items-center">
       <div className="flex overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
@@ -137,11 +132,26 @@ export default function Home() {
                       rarity={card.rarity}
                       image={card.image}
                       key={`red-card-${redKey}`}
-                      onClose={() =>
+                      onClose={function(){
+                        // On card closure, remove card from redCards
                         setRedCards(
                           redCards.filter((testCard) => testCard != card),
                         )
-                      }
+
+                        // update parseParams
+                        setRedParseParams((prev) => {
+                          return {
+                            score: prev.score,
+                            mods: prev.mods,
+                            map: prev.map,
+                            bpm: prev.bpm,
+                            ar: prev.ar,
+                            hand: JSON.stringify([
+                              ...(redCards.filter((testCard) => testCard != card)),
+                            ])
+                          }
+                        });
+                      }}
                       onCardClick={() => onRedCardClick(card)}
                     />
                   ))}
@@ -230,8 +240,8 @@ export default function Home() {
             ]);
             setRedCardID(redCardID + 1);
 
-            // changes parseParams to include updated cards
-            setParseParams((prev) => {
+            // changes redParseParams to include updated cards
+            setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods,
@@ -277,7 +287,7 @@ export default function Home() {
         className ="flex items-center mb-4 columns-2">
           <label>
             <input 
-            onChange = {() => setParseParams((prev) => {
+            onChange = {() => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods.includes("hd") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hd")) : (prev.mods.includes("nm") ? ["hd"] : [...prev.mods, "hd"]),
@@ -293,7 +303,7 @@ export default function Home() {
           </label>
           <label>
             <input 
-            onChange = {() => setParseParams((prev) => {
+            onChange = {() => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods.includes("hr") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hr")) : (prev.mods.includes("nm") ? ["hr"] : [...prev.mods, "hr"]),
@@ -309,7 +319,7 @@ export default function Home() {
           </label>
           <label>
             <input 
-            onChange = {() => setParseParams((prev) => {
+            onChange = {() => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods.includes("dt") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "dt")) : (prev.mods.includes("nm") ? ["dt"] : [...prev.mods, "dt"]),
@@ -328,9 +338,9 @@ export default function Home() {
             <input
             type='number'
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 727727"
-            value={parseParams.score}
+            value={redParseParams.score}
             // e is the change event of this input
-            onChange = {(e) => setParseParams((prev) => {
+            onChange = {(e) => setRedParseParams((prev) => {
               return {
                 score: e.target.value,
                 mods: prev.mods,
@@ -346,9 +356,9 @@ export default function Home() {
             Map: 
             <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. dt1"
-            value={parseParams.map}
+            value={redParseParams.map}
             // e is the change event of this input
-            onChange = {(e) => setParseParams((prev) => {
+            onChange = {(e) => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods,
@@ -365,9 +375,9 @@ export default function Home() {
             <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 180"
             type='number'
-            value={parseParams.bpm}
+            value={redParseParams.bpm}
             // e is the change event of this input
-            onChange = {(e) => setParseParams((prev) => {
+            onChange = {(e) => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods,
@@ -384,9 +394,9 @@ export default function Home() {
             <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 9.3"
             type="number"
-            value={parseParams.ar}
+            value={redParseParams.ar}
             // e is the change event of this input
-            onChange = {(e) => setParseParams((prev) => {
+            onChange = {(e) => setRedParseParams((prev) => {
               return {
                 score: prev.score,
                 mods: prev.mods,
