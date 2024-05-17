@@ -31,7 +31,8 @@ export const GET = async (req:NextRequest) => {
     const map = req.nextUrl.searchParams.get("map");
     const hand = JSON.parse(req.nextUrl.searchParams.get("hand"));
 
-
+    
+    
     // List of mods which are applicable for each card in hand
     const modList = hand.map((card) => {
         return getMods(card);
@@ -51,12 +52,26 @@ export const GET = async (req:NextRequest) => {
     const effectList = hand.map((card) => {
         return getEffect(card);
     });
-
+    
     // Queues for flat bonus and percent bonus (flat first then percents second)
     const addQueue = [];
     const multiplyQueue = [];
+    
+    // Variant calculation (Holo, Poly)
+    let polyCount = 0;
+    for(let i = 0; i < hand.length; i++) {
+        // add 6% for every holo card
+        if(hand[i].variant == "Holographic") multiplyQueue.push(1.06);
 
-
+        // add scaling percentage for every poly card
+        if(hand[i].variant == "Polychromatic") {
+            polyCount++;
+            if(polyCount < 3) multiplyQueue.push(1.06);
+            else if(polyCount < 5) multiplyQueue.push(1.04);
+            else if(polyCount < 7) multiplyQueue.push(1.02);
+        }
+    }
+    
     // enqueues effect for card i into the addQueue and multiplyQueue
     const enqueueEffect = (i) => {
         while(effectList[i] == undefined) effectList.shift(); // undefined workaround (idk why first element is undefined who fckn knows oh well)
@@ -115,6 +130,8 @@ export const GET = async (req:NextRequest) => {
     // Variable storing calculated score
     let newScore = parseFloat(score!);
 
+    console.log(addQueue);
+    console.log(multiplyQueue);
     // Calculating newScore using add and multiply queues
     for(let i = 0; i < addQueue.length; i++) newScore += addQueue[i];
     for(let i = 0; i < multiplyQueue.length; i++) newScore *= multiplyQueue[i];
