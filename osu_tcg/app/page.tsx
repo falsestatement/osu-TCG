@@ -34,24 +34,6 @@ export default function Home() {
     hand: {}
   });
 
-  // class InputParams {
-  //   private score: string = '0';
-  //   private mods: string[] = ['nm'];
-  //   private map: string = '';
-  //   private bpm: string = '';
-  //   private ar: string = '';
-  //   private hand: string[] = [];
-  
-  //   constructor(score: string, mods: string[], map: string, bpm: string, ar: string, hand: string[]) {
-  //     this.score = score;
-  //     this.mods = mods;
-  //     this.map = map;
-  //     this.bpm = bpm;
-  //     this.ar = ar;
-  //     this.hand = hand;
-  //   }
-  // }
-
   const numCardsPerRow = 9;
   const numRows = 3;
   const cardVariants = ["Normal", "Holographic", "Polychromatic"];
@@ -65,7 +47,6 @@ export default function Home() {
     setCurrentViewBlueCard(card);
     setBlueCardView(true);
   };
-
 
   // An Async function which fetches a response from the API (which calculates a score based on mods and whatnot)
   // Then converts it to a JSON and uses score state to set score.

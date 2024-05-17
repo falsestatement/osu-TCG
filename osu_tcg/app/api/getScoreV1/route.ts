@@ -36,16 +36,20 @@ export const GET = async (req:NextRequest) => {
     const modList = hand.map((card) => {
         return getMods(card);
     });
+
+    // [["hd"], [""], ["always"]]
     
     // List of maps which are applicable for each card in hand
     const mapList = hand.map((card) => {
         return getMaps(card);
     });
+    // [[""], [""], ["dt1", "hr1"]]
     
     // List of map attributes which are applicable for each card in hand
     const mapAttributesList = hand.map((card) => {
         return getMapAttributes(card);
     });
+    // [["bpm", <, 200], [""], ["dt1", "hr1"]]
     
     // List of effects to apply to score for each card in hand
     const effectList = hand.map((card) => {
