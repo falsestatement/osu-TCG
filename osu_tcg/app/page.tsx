@@ -15,8 +15,17 @@ export default function Home() {
   const [currentViewRedCard, setCurrentViewRedCard] = useState({});
   const [blueCardView, setBlueCardView] = useState(false);
   const [currentViewBlueCard, setCurrentViewBlueCard] = useState({});
-  const [score, setScore] = useState("");
+  const [redScore, setRedScore] = useState("");
+  const [blueScore, setBlueScore] = useState("");
   const [redParseParams, setRedParseParams] = useState({
+    score: "0",
+    mods: ["nm"],
+    map: "",
+    bpm: "",
+    ar: "",
+    hand: {}
+  });
+  const [blueParseParams, setBlueParseParams] = useState({
     score: "0",
     mods: ["nm"],
     map: "",
@@ -61,9 +70,13 @@ export default function Home() {
   // An Async function which fetches a response from the API (which calculates a score based on mods and whatnot)
   // Then converts it to a JSON and uses score state to set score.
   const fetchData = async () => {
-    const req = await fetch(`/api/getParsedCards?score=${redParseParams.score}&mods=${redParseParams.mods}&bpm=${redParseParams.bpm}&ar=${redParseParams.ar}&map=${redParseParams.map}&hand=${redParseParams.hand}`);
-    const reqJSON = await req.json();
-    setScore(reqJSON);
+    const redReq = await fetch(`/api/getParsedCards?score=${redParseParams.score}&mods=${redParseParams.mods}&bpm=${redParseParams.bpm}&ar=${redParseParams.ar}&map=${redParseParams.map}&hand=${redParseParams.hand}`);
+    const redReqJSON = await redReq.json();
+    setRedScore(redReqJSON);
+
+    const blueReq = await fetch(`/api/getParsedCards?score=${blueParseParams.score}&mods=${blueParseParams.mods}&bpm=${blueParseParams.bpm}&ar=${blueParseParams.ar}&map=${blueParseParams.map}&hand=${blueParseParams.hand}`);
+    const blueReqJSON = await blueReq.json();
+    setBlueScore(blueReqJSON);
   }
 
   useEffect(() => {
@@ -193,11 +206,26 @@ export default function Home() {
                       rarity={card.rarity}
                       image={card.image}
                       key={`blue-card-${blueKey}`}
-                      onClose={() =>
+                      onClose={function(){
+                        // On card closure, remove card from redCards
                         setBlueCards(
                           blueCards.filter((testCard) => testCard != card),
                         )
-                      }
+
+                        // update parseParams
+                        setBlueParseParams((prev) => {
+                          return {
+                            score: prev.score,
+                            mods: prev.mods,
+                            map: prev.map,
+                            bpm: prev.bpm,
+                            ar: prev.ar,
+                            hand: JSON.stringify([
+                              ...(blueCards.filter((testCard) => testCard != card)),
+                            ])
+                          }
+                        });
+                      }}
                       onCardClick={() => onBlueCardClick(card)}
                     />
                   ))}
@@ -278,6 +306,21 @@ export default function Home() {
               { ...target[0], variant: variantQuery, id: blueCardID },
             ]);
             setBlueCardID(blueCardID + 1);
+
+            // changes redParseParams to include updated cards
+            setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: JSON.stringify([
+                  ...blueCards,
+                  { ...target[0], variant: variantQuery, id: blueCardID },
+                ])
+              }
+            });
           }}
         >
           Add Blue Card
@@ -410,9 +453,149 @@ export default function Home() {
           </label>
 
         </div>
-        <button className="bg-gray-400 rounded-lg p-2 hover:bg-gray-200 select-none"
+
+
+
+        <div
+        className ="flex items-center mb-4 columns-2">
+          <label>
+            <input 
+            onChange = {() => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("hd") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hd")) : (prev.mods.includes("nm") ? ["hd"] : [...prev.mods, "hd"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="hd"
+            type="checkbox" 
+            />HD
+          </label>
+          <label>
+            <input 
+            onChange = {() => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("hr") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hr")) : (prev.mods.includes("nm") ? ["hr"] : [...prev.mods, "hr"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="hr"
+            type="checkbox" 
+            />HR
+          </label>
+          <label>
+            <input 
+            onChange = {() => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("dt") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "dt")) : (prev.mods.includes("nm") ? ["dt"] : [...prev.mods, "dt"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="dt"
+            type="checkbox" 
+            />DT
+          </label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+            Score: 
+            <input
+            type='number'
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 727727"
+            value={blueParseParams.score}
+            // e is the change event of this input
+            onChange = {(e) => setBlueParseParams((prev) => {
+              return {
+                score: e.target.value,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+            Map: 
+            <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. dt1"
+            value={blueParseParams.map}
+            // e is the change event of this input
+            onChange = {(e) => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: e.target.value.toLowerCase(),
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+            BPM: 
+            <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 180"
+            type='number'
+            value={blueParseParams.bpm}
+            // e is the change event of this input
+            onChange = {(e) => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: e.target.value,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label className="font-bold block mb-2 text-lg font-medium text-gray-900 dark:text-white">
+            AR: 
+            <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ex. 9.3"
+            type="number"
+            value={blueParseParams.ar}
+            // e is the change event of this input
+            onChange = {(e) => setBlueParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: e.target.value,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+
+        </div>
+        <button className="bg-gray-400 rounded-lg p-2 hover:bg-gray-200 select-none col-span-2"
         onClick={fetchData}><b>Calculate Score</b></button>
-        <div className="text-xl font-semibold">{Math.round(score)}</div>
+
+        <div className="text-xl rounded-lg p-2 font-semibold bg-red-400 shadow">
+          <div className="flex justify-center">Red Score</div>
+          <div className="flex justify-center">{Math.round(redScore)}</div>
+        </div>
+
+        <div className="text-xl rounded-lg p-2 font-semibold bg-blue-400 shadow">
+          <div className="flex justify-center">Blue Score</div>
+          <div className="flex justify-center">{Math.round(blueScore)}</div>
+        </div>
+
       </div>
     </main>
   );
