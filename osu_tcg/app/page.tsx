@@ -15,6 +15,34 @@ export default function Home() {
   const [currentViewRedCard, setCurrentViewRedCard] = useState({});
   const [blueCardView, setBlueCardView] = useState(false);
   const [currentViewBlueCard, setCurrentViewBlueCard] = useState({});
+  const [score, setScore] = useState("");
+  const [parseParams, setParseParams] = useState({
+    score: "0",
+    mods: ["nm"],
+    map: "",
+    bpm: "",
+    ar: "",
+    hand: {}
+  });
+  // console.log(redCards);
+
+  // class InputParams {
+  //   private score: string = '0';
+  //   private mods: string[] = ['nm'];
+  //   private map: string = '';
+  //   private bpm: string = '';
+  //   private ar: string = '';
+  //   private hand: string[] = [];
+  
+  //   constructor(score: string, mods: string[], map: string, bpm: string, ar: string, hand: string[]) {
+  //     this.score = score;
+  //     this.mods = mods;
+  //     this.map = map;
+  //     this.bpm = bpm;
+  //     this.ar = ar;
+  //     this.hand = hand;
+  //   }
+  // }
 
   const numCardsPerRow = 9;
   const numRows = 3;
@@ -29,6 +57,19 @@ export default function Home() {
     setCurrentViewBlueCard(card);
     setBlueCardView(true);
   };
+
+
+  // An Async function which fetches a response from the API (which calculates a score based on mods and whatnot)
+  // Then converts it to a JSON and uses score state to set score.
+  const fetchData = async () => {
+    // ERROR WITH PARSEPARAMS.HAND IT'S SENDING [OBJECT object] INSTEAD OF THE ACTUAL OBJECT BRUH
+
+    const req = await fetch(`/api/getParsedCards?score=${parseParams.score}&mods=${parseParams.mods}&bpm=${parseParams.bpm}&ar=${parseParams.ar}&map=${parseParams.map}&hand=${parseParams.hand}`);
+    // console.log(parseParams.hand);
+    const reqJSON = await req.json();
+    setScore(reqJSON);
+    // console.log(reqJSON);
+  }
 
   useEffect(() => {
     const scaleFactor = Math.max(
@@ -45,6 +86,19 @@ export default function Home() {
     );
     document.body.style.setProperty("--row-scale-blue", `${scaleFactor}`);
   }, [blueCards.length]);
+
+
+  // Prints user input for input data
+  useEffect(() => {
+    console.log({
+      score: parseParams.score,
+      mods: parseParams.mods.join(","),
+      map: parseParams.map,
+      bpm: parseParams.bpm,
+      ar: parseParams.ar,
+      hand: parseParams.hand
+    });
+  }, [parseParams])
   return (
     <main className="flex flex-col gap-5 items-center">
       <div className="flex overflow-hidden bg-gradient-to-r from-red-500 from-40% to-blue-500 to-60% h-[960px] w-[2560px] min-h-[960px] min-w-[2560px] max-h-[960px] max-w-[2560px]">
@@ -175,6 +229,22 @@ export default function Home() {
               { ...target[0], variant: variantQuery, id: redCardID },
             ]);
             setRedCardID(redCardID + 1);
+
+            // changes parseParams to include updated cards
+            setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: JSON.stringify([
+                  ...redCards,
+                  { ...target[0], variant: variantQuery, id: redCardID },
+                ])
+              }
+            });
+
           }}
         >
           Add Red Card
@@ -202,6 +272,133 @@ export default function Home() {
         >
           Add Blue Card
         </button>
+        
+        <div
+        className ="relative flex-col">
+          <label>
+            <input 
+            onChange = {() => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("hd") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hd")) : (prev.mods.includes("nm") ? ["hd"] : [...prev.mods, "hd"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="hd"
+            type="checkbox" 
+            />HD
+          </label>
+          <label>
+            <input 
+            onChange = {() => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("hr") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "hr")) : (prev.mods.includes("nm") ? ["hr"] : [...prev.mods, "hr"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="hr"
+            type="checkbox" 
+            />HR
+          </label>
+          <label>
+            <input 
+            onChange = {() => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods.includes("dt") ? (prev.mods.length == 1 ? ["nm"] : prev.mods.filter((mod) => mod !== "dt")) : (prev.mods.includes("nm") ? ["dt"] : [...prev.mods, "dt"]),
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            value="dt"
+            type="checkbox" 
+            />DT
+          </label>
+          <label>
+            Score: 
+            <input
+            type='number'
+            value={parseParams.score}
+            // e is the change event of this input
+            onChange = {(e) => setParseParams((prev) => {
+              return {
+                score: e.target.value,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label>
+            Map: 
+            <input
+            value={parseParams.map}
+            // e is the change event of this input
+            onChange = {(e) => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: e.target.value.toLowerCase(),
+                bpm: prev.bpm,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label>
+            BPM: 
+            <input
+            type='number'
+            value={parseParams.bpm}
+            // e is the change event of this input
+            onChange = {(e) => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: e.target.value,
+                ar: prev.ar,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+          <label>
+            ar: 
+            <input
+            type="number"
+            value={parseParams.ar}
+            // e is the change event of this input
+            onChange = {(e) => setParseParams((prev) => {
+              return {
+                score: prev.score,
+                mods: prev.mods,
+                map: prev.map,
+                bpm: prev.bpm,
+                ar: e.target.value,
+                hand: prev.hand
+              }
+            })}
+            />
+          </label>
+
+        </div>
+        <button
+        onClick={fetchData}><b>Calculate Score</b></button>
+        <div>{Math.round(score)}</div>
       </div>
     </main>
   );
