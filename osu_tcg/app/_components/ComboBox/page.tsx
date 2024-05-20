@@ -25,43 +25,45 @@ const ComboBox = ({
     .includes(query.toLowerCase());
 
   return (
-  <>
-  {inputFocus && <div 
-  onClick={() => setInputFocus(false)}
-  className="z-10 h-full w-full top-0 left-0 absolute"
-  />}
-    <div className="flex flex-row">
-      <p className="font-bold mx-2">{title}</p>
-      <div className="relative">
-        <input
-          onClick={() => {
-            setInputFocus(true);
-            setQuery("");
-          }}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === "Escape") setInputFocus(false);
-          }}
-          value={query}
-          className={valid ? "w-full bg-gray-200" : "w-full bg-red-200"}
+    <>
+      {inputFocus && (
+        <div
+          onClick={() => setInputFocus(false)}
+          className="z-10 h-full w-full top-0 left-0 absolute"
         />
-        <div className="absolute z-10 bg-white w-full max-h-60 overflow-y-scroll">
-          {inputFocus &&
-            filteredList.map((item, id) => (
-              <div
-                key={`select-item-${id}`}
-                className="hover:bg-gray-200 select-none"
-                onClick={() => {
-                  setQuery(item);
-                  setInputFocus(false);
-                }}
-              >
-                {item}
-              </div>
-            ))}
+      )}
+      <div className="flex flex-row">
+        <p className="font-bold mx-2">{title}</p>
+        <div className="relative">
+          <input
+            onClick={() => {
+              setInputFocus(true);
+              setQuery("");
+            }}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === "Escape") setInputFocus(false);
+            }}
+            value={query}
+            className={valid ? "w-full bg-gray-200" : "w-full bg-red-200"}
+          />
+          <div className="absolute z-10 bg-white w-full max-h-60 overflow-y-scroll">
+            {inputFocus &&
+              filteredList.map((item, id) => (
+                <div
+                  key={`select-item-${id}`}
+                  className="hover:bg-gray-200 select-none"
+                  onClick={() => {
+                    setQuery(item);
+                    setInputFocus(false);
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
