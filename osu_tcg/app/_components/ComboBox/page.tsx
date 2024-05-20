@@ -28,7 +28,7 @@ const ComboBox = ({
   <>
   {inputFocus && <div 
   onClick={() => setInputFocus(false)}
-  className="h-full w-full top-0 left-0 absolute"
+  className="z-10 h-full w-full top-0 left-0 absolute"
   />}
     <div className="flex flex-row">
       <p className="font-bold mx-2">{title}</p>
