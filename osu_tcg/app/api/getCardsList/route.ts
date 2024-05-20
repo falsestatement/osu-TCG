@@ -12,9 +12,9 @@ export const GET = async () => {
       image: card.image,
       counter: 0,
       forceEffect: false,
-      autoSupported: card.autoSupported === "true",
+      autoSupported: card.autoSupported === "TRUE",
       isEnabled: true,
-      isUnconditional: card.isUnconditional === "true",
+      isUnconditional: card.isUnconditional === "TRUE",
       // effect is fucked hmmmmmmmm
       effect: `${card.effect}`.split(",").map((cardEffect, index) => ({
         value: cardEffect,

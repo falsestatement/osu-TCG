@@ -34,11 +34,6 @@ export const POST = async (request: NextRequest) => {
 
   // Enqueue's effects (DOES NOT SUPPORT MORE THAN ONE EFFECT ATM (thats why index is 0))
   const enqueueEffect = (i: number) => {
-    console.log(`index ${i}`);
-    console.log(userHand[i].effect);
-    console.log(userHand[i].effect[0].operator);
-    console.log(userHand[i].effect[0].operator === "mul");
-    console.log(parseFloat(userHand[i].effect[0].value));
     if (userHand[i].effect[0].operator === "add") {
       addQueue.push(parseFloat(userHand[i].effect[0].value));
     }
@@ -49,7 +44,7 @@ export const POST = async (request: NextRequest) => {
 
   for (let i = 0; i < userHand.length; i++) {
     let currHand = userHand[i];
-    console.log(`Starting Analysis of card ${userHand[i].title}`);
+    console.log(`\nStarting Analysis of card ${userHand[i].title}`);
     if (!userHand[i].isEnabled || !userHand[i].autoSupported) {
       console.log("Not Enabled or Auto Supported");
       continue;
@@ -61,32 +56,16 @@ export const POST = async (request: NextRequest) => {
     }
 
     // Mods Check
-    // reduce(item passed on, other stuff ...)
-    // written by false
-    console.log(currHand.effectiveMods.length);
     if (!valid || !(currHand.effectiveMods.length == 0)) {
-      console.log("here")
-      console.log(userMods)
-      console.log(currHand.effectiveMods)
       for(let j = 0; j < userMods.length; j++) {
         for(let k = 0; k < currHand.effectiveMods.length; k++) {
-          console.log(userMods[j])
-          console.log(currHand.effectiveMods[k])
           if(userMods[j] === currHand.effectiveMods[k]) {
             console.log("Valid Mod!");
             valid = true;
-            console.log(userMods[j]);
-            console.log(currHand.effectiveMods[k]);
             break;
           }
         }
       }
-
-      // console.log("Checking Effective Mods");
-      // valid = currHand.effectiveMods.reduce(
-      //   (validAccum: boolean, effectiveMod: string) =>
-      //     validAccum || userMods.includes(effectiveMod),
-      // );
     }
 
     // Map Check
@@ -134,7 +113,6 @@ const checkMapAttribute = (
   effectiveAttribute: MapAttribute,
   userAttributes: ScoreAttributeType[],
 ) => {
-  console.log("checkMApAttribute");
   for (let i = 0; i < userAttributes.length; i++) {
     if (userAttributes[i].attribute == effectiveAttribute.attribute) {
       switch (effectiveAttribute.operator) {
